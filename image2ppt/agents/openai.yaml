@@ -1,0 +1,4 @@
+interface:
+  display_name: "Image2PPT"
+  short_description: "Convert images into editable PPTX decks"
+  default_prompt: "Use $image2ppt to convert this image into an editable PowerPoint deck."
