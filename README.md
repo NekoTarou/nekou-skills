@@ -8,7 +8,7 @@
 
 A collection of **Claude Code Skills** — structured workflow guides that teach AI assistants how to use specific MCP (Model Context Protocol) tool sets.
 
-This repository currently includes database, API, and presentation-generation skills.
+This repository currently includes database, API, presentation-generation, and goal-planning skills.
 
 ### Skills
 
@@ -17,6 +17,7 @@ This repository currently includes database, API, and presentation-generation sk
 | [kingbase-skill](./kingbase-skill/) | Connect to and manage KingBase databases (PostgreSQL-compatible) via `kb_*` MCP tools. Supports querying, schema exploration, DML/DDL with two-phase confirmation, and performance analysis. |
 | [swagger-api-skill](./swagger-api-skill/) | Explore and call REST APIs from Swagger/OpenAPI specs via `swagger_*` MCP tools. Supports spec loading, endpoint discovery, schema inspection, and API calls with preview/confirm. |
 | [image2ppt](./image2ppt/) | Convert images, screenshots, diagrams, flowcharts, architecture charts, and infographics into PowerPoint/PPTX decks. Supports fast static-image slides and editable reconstructions using `python-pptx` plus the bundled scaffold script. |
+| [goal-workflow](./goal-workflow/) | Turn a task into a reviewed Goal plan with ordered, verifiable objectives, configure `pi-goal-tool`, and start its Autopilot only after explicit human approval. |
 
 ### Skill Structure
 
@@ -36,6 +37,7 @@ Copy the skill directory into `~/.claude/skills/`:
 cp -r kingbase-skill ~/.claude/skills/
 cp -r swagger-api-skill ~/.claude/skills/
 cp -r image2ppt ~/.claude/skills/
+cp -r goal-workflow ~/.claude/skills/
 ```
 
 After installation, Claude Code will automatically detect and use the skills when relevant MCP tools are available.
@@ -80,7 +82,7 @@ MIT
 
 一组 **Claude Code 技能** —— 结构化的工作流指南，指导 AI 助手如何使用特定的 MCP（模型上下文协议）工具集。
 
-当前仓库包含数据库、API 和演示文稿生成相关技能。
+当前仓库包含数据库、API、演示文稿生成和目标规划相关技能。
 
 ### 技能列表
 
@@ -89,6 +91,7 @@ MIT
 | [kingbase-skill](./kingbase-skill/) | 通过 `kb_*` MCP 工具连接和管理 KingBase 数据库（兼容 PostgreSQL）。支持查询、Schema 探索、两阶段确认的 DML/DDL 操作以及性能分析。 |
 | [swagger-api-skill](./swagger-api-skill/) | 通过 `swagger_*` MCP 工具探索和调用 Swagger/OpenAPI 规范中的 REST API。支持规范加载、端点发现、Schema 查看和预览/确认模式的 API 调用。 |
 | [image2ppt](./image2ppt/) | 将图片、截图、流程图、架构图、图表和信息图转换为 PowerPoint/PPTX。支持快速生成静态图片页，也支持基于 `python-pptx` 和内置脚手架脚本重建可编辑 PPT。 |
+| [goal-workflow](./goal-workflow/) | 将任务拆解为可评审的 Goal 计划（包含有序且可验证的目标），配置 `pi-goal-tool` 并在人工明确确认后启动其 Autopilot。 |
 
 ### 技能目录结构
 
@@ -108,6 +111,7 @@ MIT
 cp -r kingbase-skill ~/.claude/skills/
 cp -r swagger-api-skill ~/.claude/skills/
 cp -r image2ppt ~/.claude/skills/
+cp -r goal-workflow ~/.claude/skills/
 ```
 
 安装后，当相关 MCP 工具可用时，Claude Code 会自动检测并使用这些技能。
