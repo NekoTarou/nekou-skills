@@ -1,0 +1,43 @@
+{
+  "skill_name": "goal-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "当前 goal_list 返回没有目标。我想给这个 TypeScript 服务增加请求重试：只重试网络错误和 5xx，最多两次，不能重试 4xx；帮我拆成 Goal 并自动执行。我没有指定轮数。",
+      "expected_output": "先只展示尚未写入的 mission 和带验收条件的有序目标，并明确默认最多 10 轮；人工明确确认前不得调用任何写入工具。确认后再次检查 goal_list，按 goal_set_mission、逐项 goal_add、goal_list 校验、goal_auto_on({ maxRounds: 10 }) 的顺序执行。",
+      "files": [],
+      "expectations": [
+        "首次响应明确标记草案尚未写入，并要求人工确认",
+        "mission 保留只重试网络错误和 5xx、最多两次、不重试 4xx 的约束",
+        "每个目标包含可观察的完成或验证条件",
+        "确认前没有任何状态变更调用，确认后再次执行 goal_list",
+        "最终显式调用 goal_auto_on({ maxRounds: 10 })"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我想开始一个新的数据库迁移任务，但 goal_list 返回 `[ ] #3 修复支付回调测试`。请帮我规划后直接启动。",
+      "expected_output": "识别到未完成目标 #3 后立即停止；不得生成并写入新 mission、不得添加目标、不得删除或完成旧目标、不得启动 Autopilot。提示用户使用 /goal、/goal done 3、/goal rm 3 等命令自行处理。",
+      "files": [],
+      "expectations": [
+        "明确指出未完成目标 #3 阻塞新流程",
+        "没有调用任何状态变更工具",
+        "没有生成或启动新的 Goal 计划",
+        "给出 /goal、/goal done 3 和 /goal rm 3 等人工处理命令"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "goal_list 当前没有未完成目标。先为“整理 API 文档”生成 Goal 草案。我随后回复：第二步不要生成 SDK 示例，改成补充认证与错误码示例，轮数改成 6；然后我再回复“确认执行”。",
+      "expected_output": "首次只展示草案；收到修改要求后展示包含新第二步和 6 轮限制的完整修订草案且不写入；收到最终明确确认后重新调用 goal_list，只写入最终批准版本，校验后调用 goal_auto_on({ maxRounds: 6 })。",
+      "files": [],
+      "expectations": [
+        "首次和修订后的草案都在写入前等待确认",
+        "修订草案以认证与错误码示例替换 SDK 示例",
+        "只有最终确认后才调用状态变更工具",
+        "最终写入前重新执行 goal_list，并只写入批准后的版本",
+        "最终显式调用 goal_auto_on({ maxRounds: 6 })"
+      ]
+    }
+  ]
+}
